@@ -1,0 +1,96 @@
+<?php
+declare(strict_types=1);
+
+use Magento\Framework\Escaper;
+use Magento\Framework\View\Element\Template;
+use NeutromeLabs\SsrGraphql\ViewModel\SsrGraphqlViewModel;
+
+/** @var Template $block */
+/** @var Escaper $escaper */
+
+/** @var SsrGraphqlViewModel $gql */
+$gql = $block->getData('ssrGqlViewModel');
+?>
+
+<script>
+    /**
+     * Fetches a Magento 2 GraphQL query
+     *
+     * @param {string} query
+     * @param {Object} variables
+     * @param {RequestInit} init
+     *
+     * @return {Promise<{
+     *     data: Object,
+     *     errors: Object[],
+     * }>}
+     */
+    window.fetchMagento2Gql = async function (query, variables = {}, init = {}) {
+        // todo: add support for GET requests
+        const r = await fetch('<?= $gql->getBaseUrl() ?>graphql', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                query,
+                variables,
+            }),
+            ...init,
+        });
+        return await r.json();
+    }
+
+    window.createMagento2SsrGqlStub = function (query, variables, response = undefined) {
+        <?php if ($gql->isDebug()): ?>
+        console.log('ssr graphql stub: ', {
+            query,
+            variables,
+            meta: response.__debug,
+        });
+
+        if (response?.errors?.length > 0) {
+            console.error('error resolving ssr graphql response: ', {
+                query,
+                variables,
+                errors: response.errors.length === 1 ? response.errors[0] : response.errors,
+            });
+        }
+        <?php endif; ?>
+
+        return {
+            ssr: {
+                query,
+                variables,
+                response,
+            },
+            fresh: false,
+            data: response?.data,
+            errors: response?.errors,
+            fetch: async function (variables, init = {}) {
+                const r = await window.fetchMagento2Gql(this.ssr.query, {
+                    ...this.ssr.variables,
+                    ...variables,
+                }, init);
+
+                <?php if ($gql->isDebug()): ?>
+                if (r.errors?.length > 0) {
+                    console.error('error fetching graphql response: ', {
+                        query: this.ssr.query,
+                        variables: this.ssr.variables,
+                        errors: r.errors.length === 1 ? r.errors[0] : r.errors,
+                    });
+                }
+                <?php endif; ?>
+
+                return r;
+            },
+            refresh: async function (variables, init = {}) {
+                const r = await this.fetch(variables, init);
+                this.fresh = true;
+                this.data = r?.data;
+                this.errors = r?.errors;
+            }
+        };
+    }
+</script>

@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="neutromelabs" translate="label" sortOrder="999">
+            <label>Neutrome Labs</label>
+        </tab>
+        <section id="neutromelabs_ssrgraphql" sortOrder="10"
+                 showInWebsite="1" showInStore="1" showInDefault="1"
+                 translate="label"
+        >
+            <label>SSR GraphQl</label>
+            <tab>neutromelabs</tab>
+            <resource>NeutromeLabs_SsrGraphql::admin</resource>
+            <group id="general" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                <label>general</label>
+                <field id="debug" type="select" sortOrder="10"
+                       showInWebsite="1" showInStore="1" showInDefault="1"
+                       translate="label"
+                >
+                    <label>Debug</label>
+                    <comment/>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

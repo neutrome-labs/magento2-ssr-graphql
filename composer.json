@@ -1,0 +1,31 @@
+{
+    "name": "neutromelabs/magento2-ssr-graphql",
+    "version": "0.1.0",
+    "description": "Allows to preload graphql queries at the render time",
+    "type": "magento2-module",
+    "license": "GPL-3.0-or-later",
+    "require": {
+        "magento/framework": "*",
+        "magento/module-store": "*"
+    },
+    "autoload": {
+        "files": [
+            "src/SsrGraphql/registration.php"
+        ],
+        "psr-4": {
+            "NeutromeLabs\\SsrGraphql\\": "src\\SsrGraphql"
+        }
+    },
+    "repositories": {
+        "0": {
+            "type": "composer",
+            "url": "https://repo.magento.com/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "magento/composer-dependency-version-audit-plugin": true,
+            "magento/magento-composer-installer": false
+        }
+    }
+}
