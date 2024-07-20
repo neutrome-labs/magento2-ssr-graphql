@@ -1,0 +1,72 @@
+<?php
+declare(strict_types=1);
+
+use Magento\Framework\Escaper;
+use Magento\Framework\View\Element\Template;
+use NeutromeLabs\SsrGraphql\ViewModel\SsrGraphqlViewModel;
+
+/** @var Template $block */
+/** @var Escaper $escaper */
+
+/** @var SsrGraphqlViewModel $gql */
+$gql = $block->getData('ssrGqlViewModel');
+?>
+
+<script>
+    var currentPage = 1;
+    var ssrGqlExampleObject = <?= $gql->makeSsrGqlCall(<<<GRAPHQL
+query productsQuery(\$currentPage: Int!) {
+    products (search: "", pageSize: 3, currentPage: \$currentPage) {
+        items {
+            sku
+        }
+    }
+}
+GRAPHQL, ['currentPage' => 1]) ?>
+
+    console.log('script initialized');
+    console.log(ssrGqlExampleObject);
+
+    let renderData = () => {
+        document.getElementById('ssrgql_example__current_page').innerHTML = currentPage.toString();
+        [0, 1, 2].map((i) => {
+            let cardEl = document.getElementById('ssrgql_example__product_card_' + i);
+            cardEl.querySelector('[data-role="sku"]').innerHTML = ssrGqlExampleObject.data.products.items[i].sku;
+        })
+    }
+
+    let handleNext = () => {
+        currentPage++;
+
+        ssrGqlExampleObject.refresh({
+            currentPage: currentPage
+        }).then(() => {
+            console.log('refresh completed');
+            console.log(ssrGqlExampleObject);
+
+            renderData();
+        })
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        renderData();
+
+        console.log('page load completed');
+        console.log(ssrGqlExampleObject);
+    });
+</script>
+
+<div>
+    <div id="ssrgql_example__product_card_0">
+        <p>Product 1: #<span data-role="sku"></span></p>
+    </div>
+    <div id="ssrgql_example__product_card_1">
+        <p>Product 2: #<span data-role="sku"></span></p>
+    </div>
+    <div id="ssrgql_example__product_card_2">
+        <p>Product 3: #<span data-role="sku"></span></p>
+    </div>
+</div>
+
+<p>Page: <span id="ssrgql_example__current_page"></span></p>
+<button onclick="handleNext()">Next</button>

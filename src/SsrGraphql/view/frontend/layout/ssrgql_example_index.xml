@@ -2,10 +2,10 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
-        <referenceContainer name="after.body.start">
+        <referenceContainer name="content">
             <block class="Magento\Framework\View\Element\Template"
-                   name="neutromelabs.ssr-graphql.script"
-                   template="NeutromeLabs_SsrGraphql::script.phtml">
+                   name="neutromelabs.ssr-graphql.example1"
+                   template="NeutromeLabs_SsrGraphql::example/1.phtml">
                 <arguments>
                     <argument name="ssrGqlViewModel"
                               xsi:type="object">NeutromeLabs\SsrGraphql\ViewModel\SsrGraphqlViewModel

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "afc3c2802e5bcf8335a6dc745f3dde60",
+    "content-hash": "e0ce3a3a4c5e6fd472e8f18567230500",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -4484,6 +4484,40 @@
             "description": "N/A"
         },
         {
+            "name": "magento/module-graph-ql",
+            "version": "100.4.7",
+            "dist": {
+                "type": "zip",
+                "url": "https://repo.magento.com/archives/magento/module-graph-ql/magento-module-graph-ql-100.4.7.0.zip",
+                "shasum": "2f9332743bd2665fb8352af5db7a6e372531b10f"
+            },
+            "require": {
+                "magento/framework": "103.0.*",
+                "magento/module-authorization": "100.4.*",
+                "magento/module-eav": "102.1.*",
+                "magento/module-webapi": "100.4.*",
+                "php": "~8.1.0||~8.2.0||~8.3.0",
+                "webonyx/graphql-php": "^15.0"
+            },
+            "suggest": {
+                "magento/module-graph-ql-cache": "100.4.*"
+            },
+            "type": "magento2-module",
+            "autoload": {
+                "files": [
+                    "registration.php"
+                ],
+                "psr-4": {
+                    "Magento\\GraphQl\\": ""
+                }
+            },
+            "license": [
+                "OSL-3.0",
+                "AFL-3.0"
+            ],
+            "description": "N/A"
+        },
+        {
             "name": "magento/module-import-export",
             "version": "101.0.7",
             "dist": {
@@ -5547,6 +5581,41 @@
                 ],
                 "psr-4": {
                     "Magento\\Variable\\": ""
+                }
+            },
+            "license": [
+                "OSL-3.0",
+                "AFL-3.0"
+            ],
+            "description": "N/A"
+        },
+        {
+            "name": "magento/module-webapi",
+            "version": "100.4.6-p1",
+            "dist": {
+                "type": "zip",
+                "url": "https://repo.magento.com/archives/magento/module-webapi/magento-module-webapi-100.4.6.0-patch1.zip",
+                "shasum": "281d027d335cfe16b967796c9cb2f37167e213f6"
+            },
+            "require": {
+                "magento/framework": "103.0.*",
+                "magento/module-authorization": "100.4.*",
+                "magento/module-backend": "102.0.*",
+                "magento/module-integration": "100.4.*",
+                "magento/module-store": "101.1.*",
+                "php": "~8.1.0||~8.2.0||~8.3.0"
+            },
+            "suggest": {
+                "magento/module-customer": "103.0.*",
+                "magento/module-user": "101.2.*"
+            },
+            "type": "magento2-module",
+            "autoload": {
+                "files": [
+                    "registration.php"
+                ],
+                "psr-4": {
+                    "Magento\\Webapi\\": ""
                 }
             },
             "license": [
