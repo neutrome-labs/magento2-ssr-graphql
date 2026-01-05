@@ -1,6 +1,6 @@
 {
     "name": "neutromelabs/magento2-ssr-graphql",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "description": "Allows to preload graphql queries at the render time",
     "type": "magento2-module",
     "license": "GPL-3.0-or-later",
