@@ -28,7 +28,7 @@ class SsrGraphqlViewModel implements ArgumentInterface
         return $this->storeManager->getStore()->getBaseUrl();
     }
 
-    public function makeSsrGqlCall(string $query, array $variables = [], array $data = null): string
+    public function makeSsrGqlCall(string $query, array $variables = [], ?array $data = null): string
     {
         if (!is_array($data)) {
             $data = $this->resolver->resolve($query, $variables);

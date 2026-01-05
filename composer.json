@@ -13,7 +13,7 @@
             "src/SsrGraphql/registration.php"
         ],
         "psr-4": {
-            "NeutromeLabs\\SsrGraphql\\": "src\\SsrGraphql"
+            "NeutromeLabs\\SsrGraphql\\": "src/SsrGraphql"
         }
     },
     "repositories": {
